@@ -1,29 +1,41 @@
 class CartsController < ApplicationController
-  before_action :set_cart
+  include CartFinder
 
   def show
+    @cart_presenter = CartPresenter.new(@cart)
   end
 
   def update
-    @cart.update(cart_params)
+    cart_manager.apply_discount(params[:cart][:discount])
     respond_to do |format|
-      format.turbo_stream
+      format.turbo_stream { render_cart_update }
     end
   end
 
   def destroy
-    @cart.cart_items.destroy_all
-    redirect_to cart_path, notice: "Cart has been cleared"
+    cart_manager.clear
+    redirect_to cart_path, notice: t(".success")
+  end
+
+  def checkout
+    if cart_manager.checkout
+      redirect_to root_path, notice: t(".success")
+    else
+      redirect_to cart_path, alert: t(".failure")
+    end
   end
 
   private
 
-  def set_cart
-    @cart = Cart.find_or_create_by(id: session[:cart_id])
-    session[:cart_id] = @cart.id
+  def cart_manager
+    @cart_manager ||= CartManager.new(@cart)
   end
 
-  def cart_params
-    params.require(:cart).permit(:discount)
+  def render_cart_update
+    render turbo_stream: [
+      turbo_stream.update("cart-total",
+        partial: "carts/total",
+        locals: { cart: @cart })
+    ]
   end
 end

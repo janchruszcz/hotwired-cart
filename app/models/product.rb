@@ -1,6 +1,13 @@
 class Product < ApplicationRecord
+  include Priceable
+
   has_many :cart_items
 
-  validates :name, :price, presence: true
-  validates :price, numericality: { greater_than_or_equal_to: 0 }
+  validates :name, presence: true
+
+  scope :available, -> { where(available: true) }
+
+  def available?
+    available
+  end
 end
