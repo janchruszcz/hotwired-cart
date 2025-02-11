@@ -6,9 +6,11 @@ class CartManager
 
   def add_item(product_id, quantity = 1)
     item = @cart.cart_items.find_or_initialize_by(product_id: product_id)
-    item.price_snapshot = item.product.price
+    item.price_snapshot = item.product.price if item.new_record?
+    quantity = quantity.to_i
     item.quantity = item.new_record? ? quantity : item.quantity + quantity
-    item.save
+    save_result = item.save
+    return false unless save_result
     item
   end
 

@@ -11,3 +11,10 @@ suit:
   sku: SUIT-002
   description: Comfortable home suit
   available: true
+
+shoes:
+  name: Running Shoes, FastTrack
+  price: 80.00
+  sku: SHOE-003
+  description: Comfortable running shoes
+  available: true
