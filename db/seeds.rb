@@ -40,4 +40,14 @@ products.each do |product_data|
   )
 end
 
+Product.first.image.attach(io: File.open(Rails.root.join('app/assets/images/speaker.jpg')), filename: 'speaker.jpg')
+Product.second.image.attach(io: File.open(Rails.root.join('app/assets/images/pijama.jpeg')), filename: 'pijama.jpeg')
+Product.third.image.attach(io: File.open(Rails.root.join('app/assets/images/coat.jpg')), filename: 'coat.jpg')
+
+# Cart.create!(discount: 10)
+
+# CartItem.create!(cart: Cart.first, product: Product.first, quantity: 1, price_snapshot: Product.first.price)
+# CartItem.create!(cart: Cart.first, product: Product.second, quantity: 1, price_snapshot: Product.second.price)
+# CartItem.create!(cart: Cart.first, product: Product.third, quantity: 1, price_snapshot: Product.third.price)
+
 puts "Seed completed successfully!"

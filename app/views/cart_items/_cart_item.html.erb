@@ -1,5 +1,5 @@
 <div id="<%= dom_id(cart_item) %>" class="flex items-center gap-4 py-4 border-b">
-  
+  <%= image_tag cart_item.product.image, class: "w-16 h-16 rounded-md" %>
   
   <div class="flex-grow">
     <h3 class="font-semibold"><%= cart_item.product_name %></h3>
