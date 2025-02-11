@@ -11,4 +11,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  resource :cart, only: [ :show, :update, :destroy ] do
+    post "checkout", on: :member
+  end
+  resources :cart_items, only: [ :create, :update, :destroy ]
 end

@@ -1,0 +1,2 @@
+<%= turbo_stream.replace dom_id(@cart_item), partial: "cart_items/cart_item", locals: { cart_item: @cart_item } %>
+<%= turbo_stream.update "cart-total", partial: "carts/total", locals: { cart: @cart } %>
