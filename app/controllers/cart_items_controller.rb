@@ -1,7 +1,7 @@
 class CartItemsController < ApplicationController
   include CartFinder
 
-  before_action :set_cart_item, only: [ :destroy ]
+  before_action :set_cart_item, only: [ :update, :destroy ]
 
   def create
     @cart_item = cart_manager.add_item(

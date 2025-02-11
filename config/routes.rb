@@ -10,9 +10,13 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "carts#show"
   resource :cart, only: [ :show, :update, :destroy ] do
     post "checkout", on: :member
   end
   resources :cart_items, only: [ :create, :update, :destroy ]
+
+  if Rails.env.test?
+    post "test/set_cart/:id", to: "test_helpers#set_cart"
+  end
 end

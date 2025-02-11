@@ -1,20 +1,24 @@
 <div id="cart-total" class="mt-8">
-  <div class="flex items-center gap-4 mb-4">
-    <span>Discount:</span>
-    <%= form_with model: @cart, local: false do |f| %>
-      <%= f.range_field :discount, 
-          min: 0, 
-          max: 100, 
-          step: 1, 
-          class: "w-64",
-          data: { 
-            controller: "slider",
-            action: "input->slider#update" 
-          } %>
-      <span data-slider-target="value">
-        <%= number_to_currency(@cart.discount) %>
-      </span>
-    <% end %>
+    <div class="flex items-center gap-4 mb-4">
+    <div data-controller="slider" class="flex items-center gap-4">
+      <span>Discount:</span>
+      <%= form_with model: @cart, local: false, 
+          data: { slider_target: "form" } do |f| %>
+        <%= f.range_field :discount, 
+            min: 0, 
+            max: 25, 
+            step: 1, 
+            value: @cart.discount,
+            class: "w-64",
+            data: { 
+              slider_target: "input",
+              action: "input->slider#update" 
+            } %>
+        <span data-slider-target="value" class="min-w-[4rem]">
+          <%= number_to_currency(@cart.discount) %>
+        </span>
+      <% end %>
+    </div>
   </div>
 
   <div class="flex justify-between items-center border-t pt-4">

@@ -1,0 +1,7 @@
+empty_cart:
+  discount: 0
+  status: active
+
+cart_with_items:
+  discount: 0
+  status: active

@@ -4,6 +4,7 @@ class Product < ApplicationRecord
   has_many :cart_items
 
   validates :name, presence: true
+  validates :sku, uniqueness: true
 
   scope :available, -> { where(available: true) }
 

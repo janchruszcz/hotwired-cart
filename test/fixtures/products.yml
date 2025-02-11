@@ -1,0 +1,13 @@
+speaker:
+  name: Wireless speaker, Goodyear
+  price: 100.00
+  sku: SPKR-001
+  description: High-quality wireless speaker
+  available: true
+
+suit:
+  name: Woman's Home Suit, Sweet Dreams
+  price: 25.00
+  sku: SUIT-002
+  description: Comfortable home suit
+  available: true

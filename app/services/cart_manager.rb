@@ -6,6 +6,7 @@ class CartManager
 
   def add_item(product_id, quantity = 1)
     item = @cart.cart_items.find_or_initialize_by(product_id: product_id)
+    item.price_snapshot = item.product.price
     item.quantity = item.new_record? ? quantity : item.quantity + quantity
     item.save
     item

@@ -1,0 +1,11 @@
+speaker_item:
+  cart: cart_with_items
+  product: speaker
+  quantity: 1
+  price_snapshot: 100.00
+
+suit_item:
+  cart: cart_with_items
+  product: suit
+  quantity: 1
+  price_snapshot: 25.00
