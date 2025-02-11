@@ -1,41 +1,20 @@
-<div class="container mx-auto px-4">
+<div class="container mx-auto px-4 max-w-4xl">
   <div class="flex justify-between items-center mb-8">
-    <%= image_tag "", class: "h-8" %>
-    <h1 class="text-2xl font-bold">Cart</h1>
-    <%= button_to "Reset", cart_path, method: :delete, class: "text-gray-600" %>
+    <%= image_tag "loadar-logo.svg", alt: "Loadar", class: "h-8" %>
+    <h1 class="text-xl font-bold">Cart</h1>
+    <%= button_to "Reset", 
+        cart_path, 
+        method: :delete, 
+        class: "text-gray-600 hover:text-gray-800" %>
   </div>
 
   <% if @cart.cart_items.any? %>
     <div id="cart-items">
-      <%= render @cart.cart_items %>
+      <%= render partial: "cart_items/cart_item", 
+                 collection: @cart.cart_items %>
     </div>
-
-    <div class="mt-8">
-      <div class="flex items-center gap-4 mb-4">
-        <span>Discount:</span>
-        <%= form_with model: @cart, local: false do |f| %>
-          <%= f.range_field :discount, min: 0, max: 100, step: 1, 
-              class: "w-64",
-              data: { controller: "slider", action: "input->slider#update" } %>
-          <span data-slider-target="value"><%= number_to_currency(@cart.discount) %></span>
-        <% end %>
-      </div>
-
-      <div class="text-xl font-bold">
-        Total: <%= number_to_currency(@cart.discounted_total) %>
-      </div>
-
-      <%= button_to "Place order", checkout_cart_path, 
-          class: "w-full bg-green-500 text-white py-3 rounded-lg mt-4",
-          data: { turbo_confirm: "Are you sure you want to place this order?" } %>
-    </div>
+    <%= render "total" %>
   <% else %>
-    <div class="text-center py-12">
-      <div class="mb-4">
-        <%= image_tag "", class: "mx-auto h-24" %>
-      </div>
-      <h2 class="text-xl font-semibold mb-2">The cart is empty</h2>
-      <p class="text-gray-600">Add items from the catalog</p>
-    </div>
+    <%= render "empty_state" %>
   <% end %>
 </div>

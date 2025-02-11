@@ -1,0 +1,44 @@
+<div id="cart-total" class="mt-8">
+  <div class="flex items-center gap-4 mb-4">
+    <span>Discount:</span>
+    <%= form_with model: @cart, local: false do |f| %>
+      <%= f.range_field :discount, 
+          min: 0, 
+          max: 100, 
+          step: 1, 
+          class: "w-64",
+          data: { 
+            controller: "slider",
+            action: "input->slider#update" 
+          } %>
+      <span data-slider-target="value">
+        <%= number_to_currency(@cart.discount) %>
+      </span>
+    <% end %>
+  </div>
+
+  <div class="flex justify-between items-center border-t pt-4">
+    <span class="text-lg">Subtotal:</span>
+    <span class="text-lg font-semibold">
+      <%= number_to_currency(@cart.total_price) %>
+    </span>
+  </div>
+
+  <% if @cart.discount > 0 %>
+    <div class="flex justify-between items-center text-green-600">
+      <span>Discount:</span>
+      <span>-<%= number_to_currency(@cart.discount) %></span>
+    </div>
+  <% end %>
+
+  <div class="flex justify-between items-center text-xl font-bold mt-2">
+    <span>Total:</span>
+    <span><%= number_to_currency(@cart.discounted_total) %></span>
+  </div>
+
+  <%= button_to checkout_cart_path, 
+      class: "w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg mt-4",
+      data: { turbo_confirm: "Are you sure you want to place this order?" } do %>
+    Place order
+  <% end %>
+</div>
